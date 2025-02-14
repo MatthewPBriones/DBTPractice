@@ -1,0 +1,1 @@
+select * from crime_data_raw.chicago_crime
