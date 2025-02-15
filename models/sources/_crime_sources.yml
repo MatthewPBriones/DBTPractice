@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: crime_data
+    schema: crime_data_raw  # This is always the same, no need for environment variables
+    tables:
+      - name: chicago_crime
+        description: "Chicago crime data from raw ingestion"
+
+      - name: sanfrancisco_crime
+        description: "San Francisco crime data from raw ingestion"
+
+      - name: seattle_crime
+        description: "Seattle crime data from raw ingestion"
