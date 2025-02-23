@@ -1,3 +1,8 @@
+{{ config(
+    schema='crime_data_stage', 
+    materialized='table'
+) }}
+
 with a as (
     select CASE 
     -- Violent Crimes

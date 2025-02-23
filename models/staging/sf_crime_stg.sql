@@ -1,9 +1,9 @@
 {{ config(
-    materialized='table', 
-    version=2               
+    schema='crime_data_stage', 
+    materialized='table'
 ) }}
 
-SELECT row_id as id,
+SELECT SAFE_CAST(row_id AS STRING) as id,
 COALESCE(latitude, 37.773972) as latitude,
 COALESCE(longitude, -122.431297) as longitude,
 incident_datetime as incident_date,
