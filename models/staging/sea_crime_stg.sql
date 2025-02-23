@@ -1,6 +1,6 @@
 {{ config(
-    materialized='table', 
-    version=2               
+    schema='crime_data_stage', 
+    materialized='table'
 ) }}
 
 SELECT report_number as id,
