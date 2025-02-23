@@ -40,6 +40,7 @@ models:
     # Applies to all files under models/example/
     marts:
       +materialized: view
+      +schema: crime_data_prod
     staging:
       +schema: "{{ 'crime_data_prod' if var('DBT_ENVIRONMENT', 'stage') == 'prod' else 'crime_data_stage' }}"
       +materialized: table
