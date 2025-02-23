@@ -19,5 +19,5 @@ models:
   - name: sea_crime_stg
     description: "Seattle crime data after staging transformations"
     tests:
-      - dbt_expectations.expect_column_values_to_not_be_null:
+      - dbt_expectations.expect_table_row_count_to_equal_distinct_column_count:
           column_list: ['report_number', 'offense_id']
