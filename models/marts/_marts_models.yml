@@ -5,10 +5,10 @@ models:
     description: "unioned crime data"
     tests:
       - dbt_expectations.expect_column_values_to_be_unique:
-          column_name: crime_category_id
+          column_name: id
 
   - name: type_mart
     description: "table to house id and information for violent, nonviolent, and other crime categories"
     tests:
        - dbt_expectations.expect_column_values_to_be_unique:
-          column_name: id
+          column_name: crime_category_id
