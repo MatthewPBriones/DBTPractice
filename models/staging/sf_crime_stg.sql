@@ -3,7 +3,7 @@
     materialized='table'
 ) }}
 
-SELECT SAFE_CAST(row_id AS STRING) as id,
+SELECT CONCAT('SFO', SAFE_CAST(row_id AS STRING)) as id,
 COALESCE(latitude, 37.773972) as latitude,
 COALESCE(longitude, -122.431297) as longitude,
 incident_datetime as incident_date,
