@@ -11,6 +11,7 @@ incident_year,
 incident_day_of_week as incident_weekday,
 COALESCE(incident_category, 'N/A') as crime_type, --CHANGE/ADD TO THE TYPE ID EVENTUALLY
 incident_description,
+'SAN FRANCISCO' AS city,
 
 CASE 
     -- Violent Crimes
