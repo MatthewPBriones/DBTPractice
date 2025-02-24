@@ -3,7 +3,7 @@
     materialized='table'
 ) }}
 
-SELECT report_number as id,
+SELECT CONCAT('SEA', SAFE_CAST(report_number AS STRING)) as id,
 
 case
 when COALESCE(latitude, 0) > 0 then latitude
