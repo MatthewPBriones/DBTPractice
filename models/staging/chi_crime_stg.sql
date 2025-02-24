@@ -3,7 +3,7 @@
     materialized='table'
 ) }}
 
-SELECT SAFE_CAST(id AS STRING) as id,
+SELECT CONCAT('CHI', SAFE_CAST(id AS STRING)) as id,
 COALESCE(latitude, 41.881832) as latitude,
 COALESCE(longitude, -87.623177) as longitude,
 date as incident_date,
