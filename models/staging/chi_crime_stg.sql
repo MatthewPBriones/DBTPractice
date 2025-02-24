@@ -11,6 +11,7 @@ year as incident_year,
 FORMAT_DATE('%A', DATE(date)) as incident_weekday,
 COALESCE(primary_type, 'N/A') as crime_type, --CHANGE/ADD TO THE TYPE ID EVENTUALLY
 description as incident_description,
+'CHICAGO' AS city,
 
 CASE 
     -- Violent Crimes

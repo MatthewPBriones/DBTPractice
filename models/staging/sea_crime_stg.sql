@@ -20,6 +20,7 @@ extract(year from offense_start_datetime) as incident_year,
 FORMAT_DATE('%A', DATE(offense_start_datetime)) as incident_weekday,
 COALESCE(offense, 'N/A') as crime_type, --CHANGE/ADD TO THE TYPE ID EVENTUALLY
 'NO DESCRIPTION AVAILABLE' as incident_description,
+'SEATTLE' AS city,
 
 CASE 
     -- Violent Crimes
