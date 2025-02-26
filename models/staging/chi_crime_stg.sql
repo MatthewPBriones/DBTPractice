@@ -74,5 +74,8 @@ CASE
     THEN 'O0001'
 
     ELSE 'O0001' -- Catch-all for any uncategorized cases
-  END AS crime_category_id
+  END AS crime_category_id,
 FROM {{ source('crime_data', 'chicago_crime') }}
+where row_num = 1
+
+
