@@ -2,7 +2,7 @@
     schema='crime_data_stage', 
     materialized='table'
 ) }}
-
+with final as (
 SELECT CONCAT('SEA', SAFE_CAST(report_number AS STRING), SAFE_CAST(offense_id AS STRING)) as id,
 
 case
@@ -85,3 +85,8 @@ CASE
     ELSE 'O0001' -- Catch-all for any uncategorized cases
   END AS crime_category_id
 FROM {{ source('crime_data', 'seattle_crime') }}
+QUALIFY ROW_NUMBER() OVER (PARTITION BY report_number, offense_id ORDER BY offense_start_datetime DESC) = 1
+)
+
+select *
+from final

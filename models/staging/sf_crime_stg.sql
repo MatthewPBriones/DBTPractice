@@ -2,7 +2,7 @@
     schema='crime_data_stage', 
     materialized='table'
 ) }}
-
+with final as (
 SELECT CONCAT('SFO', SAFE_CAST(row_id AS STRING)) as id,
 COALESCE(latitude, 37.773972) as latitude,
 COALESCE(longitude, -122.431297) as longitude,
@@ -72,8 +72,13 @@ CASE
       OR LOWER(incident_category) LIKE '%fire%' 
       OR LOWER(incident_category) LIKE '%other%' 
     THEN 'O0001'
-
     ELSE 'O0001' -- Catch-all for any uncategorized cases
   END AS crime_category_id
-
 FROM {{ source('crime_data', 'sanfrancisco_crime') }}
+qualify row_number() over (partition by row_id order by incident_datetime) = 1
+)
+
+
+select 
+*
+from final
