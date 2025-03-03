@@ -73,22 +73,12 @@ CASE
       OR LOWER(primary_type) LIKE '%other%' 
     THEN 'O0001'
     ELSE 'O0001' -- Catch-all for any uncategorized cases
-  END AS crime_category_id,
-  ROW_NUMBER() OVER (PARTITION BY id ORDER BY date DESC) AS row_num
+  END AS crime_category_id
+  
 FROM {{ source('crime_data', 'chicago_crime') }}
+QUALIFY ROW_NUMBER() OVER (PARTITION BY id ORDER BY date DESC) = 1
 
 )
 
-select 
-id,
-latitude,
-longitude,
-incident_date,
-incident_year,
-incident_weekday, 
-crime_type,
-incident_description,
-city,
-crime_category_id
+select *
 from final
-where row_num = 1
