@@ -2,7 +2,7 @@
     schema='crime_data_stage', 
     materialized='table'
 ) }}
-
+with final as (
 SELECT CONCAT('SEA', SAFE_CAST(report_number AS STRING), SAFE_CAST(offense_id AS STRING)) as id,
 
 case
@@ -83,5 +83,22 @@ CASE
     THEN 'O0001'
 
     ELSE 'O0001' -- Catch-all for any uncategorized cases
-  END AS crime_category_id
+  END AS crime_category_id,
+  ROW_NUMBER() OVER (PARTITION BY report_number, offense_id ORDER BY report_datetime DESC) AS row_num
 FROM {{ source('crime_data', 'seattle_crime') }}
+
+)
+
+select 
+id,
+latitude,
+longitude,
+incident_date,
+incident_year,
+incident_weekday, 
+crime_type,
+incident_description,
+city,
+crime_category_id
+from final
+where row_num = 1

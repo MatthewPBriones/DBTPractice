@@ -2,7 +2,7 @@
     schema='crime_data_stage', 
     materialized='table'
 ) }}
-
+with final as (
 SELECT CONCAT('CHI', SAFE_CAST(id AS STRING)) as id,
 COALESCE(latitude, 41.881832) as latitude,
 COALESCE(longitude, -87.623177) as longitude,
@@ -72,10 +72,23 @@ CASE
       OR LOWER(primary_type) LIKE '%fire%' 
       OR LOWER(primary_type) LIKE '%other%' 
     THEN 'O0001'
-
     ELSE 'O0001' -- Catch-all for any uncategorized cases
   END AS crime_category_id,
+  ROW_NUMBER() OVER (PARTITION BY id ORDER BY date DESC) AS row_num
 FROM {{ source('crime_data', 'chicago_crime') }}
+
+)
+
+select 
+id,
+latitude,
+longitude,
+incident_date,
+incident_year,
+incident_weekday, 
+crime_type,
+incident_description,
+city,
+crime_category_id
+from final
 where row_num = 1
-
-
