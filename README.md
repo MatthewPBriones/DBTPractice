@@ -21,3 +21,31 @@ The data flows through a structured transformation pipeline using raw, staging, 
 
 ## 🗄️ Database Structure
 
+├─ raw/ -- Contains untransformed ingested API data
+├─ staging/ -- Cleans and standardizes raw data for analysis
+├─ marts/ -- Final, analytics-ready tables for reporting
+
+## 🔗 Data Sources
+
+- [San Francisco Crime Data - Socrata Open Data API](https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783)  
+- [Chicago Crime Data - Socrata Open Data API](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2)  
+- [Seattle Crime Data - Socrata Open Data API](https://data.seattle.gov/Public-Safety/Crime-Data/4fs7-3vj5)  
+
+## ⏰ Scheduling
+
+The project includes a scheduled job that automatically triggers the dbt pipeline every **Monday, Wednesday, and Friday**, ensuring fresh data for analysis.
+
+## 🚀 Getting Started
+
+**Prerequisites:**  
+- Python and dbt installed  
+- Access to your target data warehouse (e.g., BigQuery, Snowflake, etc.)  
+
+**Basic Setup:**  
+```bash
+git clone https://github.com/MatthewPBriones/DBTPractice.git  
+cd DBTPractice  
+dbt deps  
+dbt seed  
+dbt run  
+dbt test  
